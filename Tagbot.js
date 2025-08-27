@@ -16,20 +16,20 @@ async function startBot() {
         const { connection, qr } = update;
 
         if (qr) {
-            console.log("📌 Scan QR berikut untuk login WhatsApp:");
+            console.log("Scan QR berikut untuk login WhatsApp:");
             qrcode.generate(qr, { small: true });
         }
 
         if (connection === "close") {
-            console.log("⚠️ Koneksi terputus. Mencoba reconnect...");
+            console.log("Koneksi terputus. Mencoba reconnect...");
             startBot();
         }
 
         if (connection === "open") {
             const userJid = sock.user.id;
             const nomorBot = userJid.split(":")[0].replace(/[^0-9]/g, "");
-            console.log("✅ Bot WhatsApp siap digunakan!");
-            console.log(`📱 Nomor bot yang sedang login: ${nomorBot}`);
+            console.log("Bot WhatsApp siap digunakan!");
+            console.log(`Nomor bot yang sedang login: ${nomorBot}`);
         }
     });
 
@@ -46,7 +46,7 @@ async function startBot() {
             if (pesan === "!tagall") {
                 if (!from.endsWith("@g.us")) {
                     await sock.sendMessage(from, {
-                        text: "⚠️ Perintah ini hanya bisa digunakan di grup!",
+                        text: "Perintah ini hanya bisa digunakan di grup!",
                     });
                     return;
                 }
@@ -54,7 +54,7 @@ async function startBot() {
                 const metadata = await sock.groupMetadata(from);
                 const participants = metadata.participants;
 
-                let teks = `📢 *Mention semua anggota grup ${metadata.subject}:*\n\n`;
+                let teks = `*Mention semua anggota grup ${metadata.subject}:*\n\n`;
                 let mentions = [];
 
                 for (let member of participants) {
@@ -67,10 +67,10 @@ async function startBot() {
                     mentions: mentions,
                 });
 
-                console.log(`✅ Berhasil mention ${participants.length} anggota grup ${metadata.subject}`);
+                console.log(`Berhasil mention ${participants.length} anggota grup ${metadata.subject}`);
             }
         } catch (err) {
-            console.error("❌ Error handling message:", err);
+            console.error("Error handling message:", err);
         }
     });
 }
